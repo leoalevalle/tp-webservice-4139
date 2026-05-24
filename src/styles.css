@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+/* Forzamos el fondo oscuro en la raíz y eliminamos scrolls innecesarios */
+html, body, app-root {
+  background-color: #0f0f0f !important;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Si usas un contenedor principal en app.component.html, asegúrate de que sea oscuro */
+main, .main-content {
+  background-color: #0f0f0f !important;
+  flex: 1; /* Esto empuja el footer hacia abajo y llena el espacio */
+}

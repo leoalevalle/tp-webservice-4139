@@ -1,57 +1,53 @@
-<div class="container mt-5 mb-5">
+<div class="container mt-5">
   <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card shadow-lg">
-        <div class="card-header bg-primary text-white text-center">
-          <h2 class="mb-0">Generador de Código QR</h2>
+    <div class="col-md-6">
+      <div class="card shadow-lg border-0">
+        <div class="card-header border-0">
+          <h3 class="text-center mb-0">QR Code Studio</h3>
         </div>
         <div class="card-body">
-          <p class="card-text text-muted">Ingresa el texto o la URL que deseas convertir en un código QR.</p>
+          <p class="text-center text-muted mb-4">Transforma instantáneamente cualquier texto o URL en un código QR escaneable.</p>
 
-          <div class="mb-4">
-            <label for="qrText" class="form-label lead">Texto o URL:</label>
+          <div class="mb-3">
+            <label for="qrText" class="form-label small text-uppercase fw-bold text-muted">Contenido del QR</label>
             <input
               type="text"
               id="qrText"
-              class="form-control form-control-lg"
+              class="form-control"
               [(ngModel)]="texto"
               placeholder="Ej: www.facebook.com o un mensaje"
             />
           </div>
 
           <div class="d-grid mb-4">
-            <button 
-              class="btn btn-success btn-lg"
+            <button
+              class="btn btn-qr-action"
               (click)="obtenerQr()"
               [disabled]="isLoading || !texto.trim()">
               <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-              {{ isLoading ? 'Generando QR...' : 'Generar Código QR' }}
+              {{ isLoading ? 'PROCESANDO...' : 'GENERAR CÓDIGO QR' }}
             </button>
           </div>
 
           <div *ngIf="isLoading" class="text-center mt-4">
-            <p class="text-info">Generando código QR, por favor espera...</p>
+            <p class="text-accent small mb-2">Construyendo matriz de datos...</p>
             <div class="progress" style="height: 10px;">
-              <div 
-                class="progress-bar progress-bar-striped progress-bar-animated" 
-                role="progressbar" 
+              <div
+                class="progress-bar progress-bar-striped progress-bar-animated"
+                role="progressbar"
                 style="width: 100%">
               </div>
             </div>
           </div>
 
-          <div *ngIf="qrImg && !isLoading" class="text-center mt-5">
-            <h4 class="mb-3 text-success">¡Código QR Generado!</h4>
-            <img [src]="qrImg" class="img-fluid rounded shadow-lg" alt="Código QR generado" style="max-width: 250px;"/>
+          <div *ngIf="qrImg && !isLoading" class="text-center mt-4 result-container">
+            <div class="qr-wrapper p-3 rounded-4 bg-white d-inline-block">
+              <img [src]="qrImg" class="img-fluid" alt="Código QR generado" style="max-width: 200px;"/>
+            </div>
+            <div class="mt-3 text-success small fw-bold">✓ CÓDIGO LISTO PARA ESCANEAR</div>
           </div>
-
-          <div *ngIf="!qrImg && !isLoading" class="text-center mt-5 text-muted">
-             <p>Tu código QR aparecerá aquí una vez que lo generes.</p>
-          </div>
-
         </div>
       </div>
     </div>
   </div>
 </div>
-

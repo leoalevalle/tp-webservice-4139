@@ -28,7 +28,6 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* Estilización de Inputs y Selects */
 .text-muted {
   color: #ffffff !important;
 }
@@ -42,13 +41,16 @@
   color: #fff !important;
 }
 
+.form-control::placeholder, .form-select::placeholder {
+  color: #949494 !important;
+}
+
 .form-control:focus, .form-select:focus {
   background-color: #222 !important;
   border-color: #a855f7 !important;
   box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.15) !important;
 }
 
-/* Botón Traducir (Estilo secundario) */
 .btn-translate {
   background-color: #2a2a2a;
   border: 1px solid #444;
@@ -65,7 +67,6 @@
   border-color: #a855f7;
 }
 
-/* Caja de Resultado */
 .text-accent {
   color: #a855f7 !important;
 }
@@ -79,7 +80,6 @@
   min-height: 60px;
 }
 
-/* Botón Audio (Acción Principal) */
 .btn-audio {
   background: linear-gradient(45deg, #a855f7, #6366f1);
   border: none;
@@ -92,7 +92,6 @@
   transition: all 0.3s ease;
 }
 
-/* Personalización del reproductor de audio */
 audio {
   filter: invert(1) hue-rotate(180deg) brightness(1.5);
   border-radius: 30px;

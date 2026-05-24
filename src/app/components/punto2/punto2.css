@@ -1,6 +1,6 @@
 :host {
   display: block;
-  background-color: #0f0f0f; /* Fondo oscuro profundo */
+  background-color: #0f0f0f;
   color: #f8f9fa;
   min-height: 100vh;
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -15,7 +15,6 @@
   color: #ffffff !important;
 }
 
-/* Buscador Estilo Moderno y Sleek */
 .input-group {
   border-radius: 30px;
   overflow: hidden;
@@ -35,6 +34,11 @@
   padding: 0.8rem 1.5rem;
 }
 
+.form-control::placeholder {
+  color: rgb(144, 144, 144) !important;
+  opacity: 1;
+}
+
 .form-control:focus {
   background-color: #222;
   color: #fff;
@@ -48,7 +52,6 @@
   padding-right: 1.5rem;
 }
 
-/* Cards de Marcas de Autos */
 .card {
   background-color: #1a1a1a;
   border: 1px solid #333;
@@ -80,7 +83,6 @@
   letter-spacing: 1px;
 }
 
-/* Modal Tematizado */
 .modal-content {
   background-color: #121212;
   color: #fff;

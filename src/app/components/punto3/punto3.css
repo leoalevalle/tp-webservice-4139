@@ -33,7 +33,6 @@
   margin-left: 0.5rem;
 }
 
-/* Estilización de Inputs y Selects */
 .form-control, .form-select, .input-group-text {
   border-radius: 12px;
   padding: 0.8rem 1rem;
@@ -46,7 +45,6 @@
   box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.15);
 }
 
-/* Botón de Intercambio (Swap) */
 .btn-swap {
   background-color: #2a2a2a;
   border: 1px solid #444;
@@ -67,7 +65,6 @@
   border-color: #0d6efd;
 }
 
-/* Botón de Acción Principal */
 .btn-action {
   background: linear-gradient(45deg, #0d6efd, #00d2ff);
   border: none;
@@ -90,7 +87,6 @@
   background: #444;
 }
 
-/* Card de Resultado */
 .result-card {
   background-color: #121212;
   border-left: 4px solid #0d6efd;

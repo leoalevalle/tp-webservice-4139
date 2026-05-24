@@ -6,13 +6,11 @@
           <h3 class="text-center mb-0">AI Smart Translator & Speech</h3>
         </div>
         <div class="card-body p-4">
-          <!-- Texto de entrada -->
           <div class="mb-4">
             <label for="texto" class="form-label small text-uppercase fw-bold text-muted">Texto original</label>
             <textarea name="texto" id="texto" class="form-control" rows="3" [(ngModel)]="textoOriginal" placeholder="Escriba el texto que desea traducir o convertir..."></textarea>
           </div>
           
-          <!-- Selector de Idioma y Botón Traducir -->
           <div class="row mb-4">
             <div class="col-sm-8">
               <label for="idioma" class="form-label small text-uppercase fw-bold text-muted">Idioma destino</label>
@@ -29,7 +27,6 @@
             </div>
           </div>
 
-          <!-- Resultado de Traducción -->
           <div class="mb-4 result-box" *ngIf="textoTraducido">
             <label class="form-label small text-uppercase fw-bold text-accent">Traducción</label>
             <div class="p-3 translation-content rounded">
@@ -37,7 +34,6 @@
             </div>
           </div>
 
-          <!-- Acción de Audio -->
           <div class="d-grid gap-3">
             <button type="button" class="btn btn-audio btn-lg" (click)="convertirAudio()" [disabled]="!textoOriginal">
               <i class="bi bi-volume-up-fill me-2"></i>Escuchar Texto

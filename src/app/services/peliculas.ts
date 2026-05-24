@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class Peliculas {private url = 'https://imdb-top-100-movies.p.rapidapi.com/';
-  private key = '6281753bbamsh380fb4ed58a8798p1521d3jsne4a4453ad3b5';
+  //private key = '6281753bbamsh380fb4ed58a8798p1521d3jsne4a4453ad3b5'; //apikey alterno
+  private key = '8a0ea54fd6mshab34eca36b6ed91p1cf7e1jsndd6039ae4360';  
   private host = 'imdb-top-100-movies.p.rapidapi.com';
 
   constructor(private http: HttpClient) {}

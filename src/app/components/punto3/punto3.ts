@@ -38,11 +38,14 @@ export class Punto3 implements OnInit{
       next: (data) => {
         this.currencies = data;
         if (data.length > 0) {
-          this.fromCurrency = data[0].code;
-          this.toCurrency = data[1]?.code || data[0].code;
+
+          const tieneARS = data.find(c => c.code === 'ARS');
+          const tieneUSD = data.find(c => c.code === 'USD');
+          this.fromCurrency = tieneARS ? 'ARS' : data[0].code;
+          this.toCurrency = tieneUSD ? 'USD' : (data[1]?.code || data[0].code);
         }
         this.loading = false;
-        this.cd.detectChanges(); // Se ejecuta cuando llegan los datos
+        this.cd.detectChanges();
       },
       error: (err) => {
         console.error('Error loading currencies:', err);

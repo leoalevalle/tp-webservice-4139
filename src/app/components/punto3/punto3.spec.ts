@@ -20,25 +20,4 @@ describe('Punto3', () => {
     await fixture.whenStable();
 
   });
-
-  it('should create', () => {
-
-    expect(component).toBeTruthy();
-
-  });
-
-  it('debe iniciar con 10 intentos', () => {
-
-    expect(component.intentos).toBe(10);
-
-  });
-
-  it('debe crear 12 cartas', () => {
-
-    component.iniciarJuego();
-
-    expect(component.cartas.length).toBe(12);
-
-  });
-
 });

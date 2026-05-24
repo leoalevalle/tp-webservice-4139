@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef} from '@angular/core';
+import { Component, ChangeDetectorRef} from '@angular/core';
 import { QrGenerator } from '../../services/qr-generator';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';

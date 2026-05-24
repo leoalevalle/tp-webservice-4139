@@ -1,8 +1,8 @@
-import { Component, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, ChangeDetectorRef, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Swift } from '../../services/swift';
+import { Traductor } from '../../services/traductor';
 
 @Component({
   selector: 'app-punto4',
@@ -11,74 +11,56 @@ import { Swift } from '../../services/swift';
   templateUrl: './punto4.html',
   styleUrl: './punto4.css'
 })
-export class Punto4 {
-  // Referencia al elemento <audio> en el HTML
-  @ViewChild('audioPlayer') audioPlayer!: ElementRef<HTMLAudioElement>;
+export class Punto4 implements OnInit{
 
-  texto: string = '';
-  vozSeleccionada: string = 'alloy';
-  audioUrl: SafeUrl | null = null;
-  rawUrl: string | null = null; // Guardamos la URL sin sanitizar para limpieza
-  cargando: boolean = false;
+  textoOriginal: string = '';
+  textoTraducido: string = '';
+  
+  idiomas: any[] = []; 
+  idiomaSeleccionado: string = 'en';
 
-  // Voces disponibles en OpenAI TTS
-  voces = [
-    { id: 'alloy', nombre: 'Alloy (Neutral)' },
-    { id: 'echo', nombre: 'Echo (Masculina)' },
-    { id: 'fable', nombre: 'Fable (Narrativa)' },
-    { id: 'onyx', nombre: 'Onyx (Robusta)' },
-    { id: 'nova', nombre: 'Nova (Femenina)' },
-    { id: 'shimmer', nombre: 'Shimmer (Clara)' }
-  ];
+  @ViewChild('reproductor') audioPlayer!: ElementRef<HTMLAudioElement>;
 
   constructor(
-    private swiftService: Swift,
-    private sanitizer: DomSanitizer,
-    private cd: ChangeDetectorRef
-  ) {}
+    private audioService: Swift, 
+    private traductorService: Traductor,
+    private changeDetector: ChangeDetectorRef
+  ) { }
 
-  convertirTextoAAudio() {
-    if (!this.texto.trim()) return;
-
-    // Limpiar recursos anteriores
-    if (this.rawUrl) {
-      URL.revokeObjectURL(this.rawUrl);
-    }
-
-    this.cargando = true;
-    this.audioUrl = null;
-    this.rawUrl = null;
-    this.cd.detectChanges();
-
-    this.swiftService.generateSpeech(this.texto, this.vozSeleccionada).subscribe({
-      next: (blob: Blob) => {
-        // Si el blob es muy pequeño (ej. < 500 bytes), probablemente sea un mensaje de error JSON
-        if (blob.size < 500) {
-          blob.text().then(text => {
-            try {
-              const errorInfo = JSON.parse(text);
-              console.error('La API devolvió un error en lugar de audio:', errorInfo);
-            } catch (e) { /* No es JSON */ }
-          });
-          return;
-        }
-
-        this.rawUrl = URL.createObjectURL(blob);
-        // Usamos bypassSecurityTrustUrl para mejor compatibilidad con etiquetas de audio
-        this.audioUrl = this.sanitizer.bypassSecurityTrustUrl(this.rawUrl);
-        this.cargando = false;
-        this.cd.detectChanges(); // Forzamos la detección para mostrar el audio al primer clic
-
-        // Forzar al navegador a cargar el nuevo flujo de audio
-        if (this.audioPlayer) {
-          this.audioPlayer.nativeElement.load();
-        }
+  ngOnInit() {
+    this.traductorService.getIdiomasSoportados().subscribe({
+      next: (data) => {
+        this.idiomas = data.filter((lang: any) => lang.code !== 'auto'); 
       },
-      error: (err) => {
-        console.error('Error al generar audio:', err);
-        this.cargando = false;
-        this.cd.detectChanges();
-      }
+      error: (err) => console.log('Error cargando idiomas:', err)
+    });
+  }
+
+  traducirTexto() {
+    if (!this.textoOriginal) return;
+
+    this.traductorService.traducir(this.textoOriginal, this.idiomaSeleccionado).subscribe({
+      next: (data) => {
+        this.textoTraducido = data.trans; 
+        this.changeDetector.detectChanges();
+      },
+      error: (err) => console.log('Error traduciendo:', err)
+    });
+  }
+
+  convertirAudio() {
+    let textoFinal = this.textoTraducido ? this.textoTraducido : this.textoOriginal;
+
+    this.audioService.convert(textoFinal).subscribe({
+      next: (data) => {
+        let objectURL = URL.createObjectURL(data);
+        if (this.audioPlayer) {
+          this.audioPlayer.nativeElement.src = objectURL;
+          this.audioPlayer.nativeElement.play();
+        }
+        this.changeDetector.detectChanges();
+      },
+      error: (err) => console.log('Error convirtiendo a audio:', err)
     });
   }
 }

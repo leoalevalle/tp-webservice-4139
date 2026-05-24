@@ -17,10 +17,10 @@ export class QrGenerator {
     return this._http
       .get(`https://qr-code-generator20.p.rapidapi.com/generatebasicbase64?data=${encodeURIComponent(data)}&size=${size}`, {
         headers,
-        responseType: 'text', // 👈 necesario para que Angular lo trate como texto plano
+        responseType: 'text',
       })
       .pipe(
-        map((base64: string) => `data:image/png;base64,${base64}`) // 👈 lo convertimos a un src usable en <img>
+        map((base64: string) => `data:image/png;base64,${base64}`) 
       );
   }
 }

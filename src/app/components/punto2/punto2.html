@@ -1,0 +1,62 @@
+<div *ngIf="cargando" class="d-flex justify-content-center align-items-center" style="height: 70vh;">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Cargando...</span>
+  </div>
+</div>
+
+<div *ngIf="!cargando" class="container">
+  <div class="row mb-4">
+    <div class="col-md-6 mx-auto">
+      <div class="input-group">
+        <input type="text" 
+               class="form-control" 
+               placeholder="Buscar marca de auto..." 
+               [(ngModel)]="terminoBusqueda"
+               (input)="filtrarMarcas()">
+        <span class="input-group-text">
+          <i class="bi bi-search"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <div *ngFor="let marca of marcasFiltradas" class="col">
+      <div class="card h-100">
+        <img [src]="marca.image" [alt]="marca.name" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title">{{ marca.name }}</h5>
+          <button class="btn btn-primary" (click)="abrirModal(marca)">Ver modelos</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modelosModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modelos de {{ marcaSeleccionada }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="cargandoModelos" class="text-center">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Cargando...</span>
+          </div>
+        </div>
+        <div *ngIf="!cargandoModelos" class="row row-cols-1 row-cols-md-2 g-3">
+          <div *ngFor="let modelo of modelos" class="col">
+            <div class="card h-100">
+              <div class="card-body">
+                <h6 class="card-title">{{ modelo.name }}</h6>
+                <p class="card-text text-muted">{{ modelo.year }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

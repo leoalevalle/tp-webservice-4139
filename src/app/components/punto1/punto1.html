@@ -1,0 +1,39 @@
+<div class="container mt-5">
+  <div class="text-center mb-5">
+    <h1 class="display-4 fw-bold text-primary">Portal de Películas</h1>
+    <p class="lead text-muted">Top 100 Mejores Películas según IMDb</p>
+    <hr class="w-25 mx-auto">
+  </div>
+
+  <div *ngIf="loading" class="text-center my-5">
+    <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+    <p class="mt-3">Obteniendo catálogo...</p>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" *ngIf="!loading">
+    <div class="col" *ngFor="let peli of peliculas">
+      <div class="card h-100 shadow-sm hover-shadow">
+        <img [src]="peli.image" class="card-img-top" [alt]="peli.title">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <h5 class="card-title fw-bold text-dark">{{ peli.title }}</h5>
+            <span class="badge bg-warning text-dark">{{ peli.year }}</span>
+          </div>
+          <p class="card-text text-secondary mt-2 text-truncate-3">
+            {{ peli.description }}
+          </p>
+          <div class="mt-3">
+            <span *ngFor="let genero of peli.genre" class="badge rounded-pill bg-light text-primary border me-1">
+              {{ genero }}
+            </span>
+          </div>
+        </div>
+        <div class="card-footer bg-white border-top-0 d-grid pb-3">
+          <a [href]="peli.imdb_url" target="_blank" class="btn btn-outline-primary btn-sm">Ver en IMDb</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+<div class="container mt-5 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white text-center">
+          <h2 class="mb-0">Generador de Código QR</h2>
+        </div>
+        <div class="card-body">
+          <p class="card-text text-muted">Ingresa el texto o la URL que deseas convertir en un código QR.</p>
+
+          <div class="mb-4">
+            <label for="qrText" class="form-label lead">Texto o URL:</label>
+            <input
+              type="text"
+              id="qrText"
+              class="form-control form-control-lg"
+              [(ngModel)]="texto"
+              placeholder="Ej: www.facebook.com o un mensaje"
+            />
+          </div>
+
+          <div class="d-grid mb-4">
+            <button 
+              class="btn btn-success btn-lg"
+              (click)="obtenerQr()"
+              [disabled]="isLoading || !texto.trim()">
+              <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+              {{ isLoading ? 'Generando QR...' : 'Generar Código QR' }}
+            </button>
+          </div>
+
+          <div *ngIf="isLoading" class="text-center mt-4">
+            <p class="text-info">Generando código QR, por favor espera...</p>
+            <div class="progress" style="height: 10px;">
+              <div 
+                class="progress-bar progress-bar-striped progress-bar-animated" 
+                role="progressbar" 
+                style="width: 100%">
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="qrImg && !isLoading" class="text-center mt-5">
+            <h4 class="mb-3 text-success">¡Código QR Generado!</h4>
+            <img [src]="qrImg" class="img-fluid rounded shadow-lg" alt="Código QR generado" style="max-width: 250px;"/>
+          </div>
+
+          <div *ngIf="!qrImg && !isLoading" class="text-center mt-5 text-muted">
+             <p>Tu código QR aparecerá aquí una vez que lo generes.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

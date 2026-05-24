@@ -1,0 +1,23 @@
+.tablero{
+    display: grid;
+    grid-template-columns: repeat(4, 120px);
+    gap: 15px;
+    justify-content: center;
+}
+
+.carta{
+    width: 120px;
+    height: 120px;
+    background-color: #0d6efd;
+    border-radius: 10px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+    font-size: 45px;
+    transition: 0.3s;
+}
+
+.carta:hover{
+    transform: scale(1.05);
+}
